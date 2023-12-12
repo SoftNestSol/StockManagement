@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 
 namespace StockManagement.Server.ContextModels
 
-
 {
     public class StockContext:DbContext
     {
@@ -68,4 +67,4 @@ namespace StockManagement.Server.ContextModels
     }
 
 }
-}
+
