@@ -14,10 +14,9 @@ namespace StockManagement.Server.ContextModels
 {
     public class StockContext:DbContext
     {
-
-        public StockContext(DbContextOptions<StockContext> options): base(options)
-        {
-
+       
+        public StockContext(DbContextOptions <StockContext> options):base(options)
+        { 
         }
         
         
@@ -29,9 +28,10 @@ namespace StockManagement.Server.ContextModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-    
-           
+        
         }
+        
+
     }
 
 }

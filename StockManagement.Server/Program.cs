@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StockManagement.Server.ContextModels;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,13 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StockContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("Stock"),
-        new MySqlServerVersion(new Version(8, 0, 21)) // Specify the MySQL version here
-    ));
-
-
-
+{
+    var connectionString = builder.Configuration.GetConnectionString("Stock");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
