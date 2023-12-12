@@ -20,5 +20,7 @@ namespace StockManagement.Server.Entities
         public DateTime Date { get; set; }
 
         public int NumberOfProducts { get; set; }
+
+        public List<Product> Products { get; set;}
     }
 }

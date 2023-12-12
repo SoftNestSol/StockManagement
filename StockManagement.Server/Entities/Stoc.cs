@@ -8,5 +8,7 @@ namespace StockManagement.Server.Entities
         public string Location { get; set; }
         public int NumberOfProducts { get; set; }
 
+        public List<Product> Products { get; set; }
+
     }
 }
