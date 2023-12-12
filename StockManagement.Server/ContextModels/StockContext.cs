@@ -12,13 +12,13 @@ namespace StockManagement.Server.ContextModels
         {
         }
 
-        public DbSet<Produs> Produse { get; set; }
+        public DbSet<Produs> Produs { get; set; }
         public DbSet<ProdusInStoc> ProduseInStoc { get; set; }
-        public DbSet<Stoc> Stocuri { get; set; }
+        public DbSet<Stoc> Stoc { get; set; }
         public DbSet<ProdusInComanda> ProduseInComanda { get; set; }
-        public DbSet<Comanda> Comenzi { get; set; }
-        public DbSet<Furnizor> Furnizori { get; set; }
-        public DbSet<Angajat> Angajati { get; set; }
+        public DbSet<Comanda> Comeanda { get; set; }
+        public DbSet<Furnizor> Furnizor { get; set; }
+        public DbSet<Angajat> Angajat { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
