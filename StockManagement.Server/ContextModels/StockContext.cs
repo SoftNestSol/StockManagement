@@ -1,5 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using StockManagement.Server.Entities;
+using StockManagement.Server.ContextModels;
+using System;
+
+
 
 
 
@@ -8,60 +14,27 @@ namespace StockManagement.Server.ContextModels
 {
     public class StockContext:DbContext
     {
-        public StockContext(DbContextOptions<StockContext> options): base(options)
+
+        public StockContext(DbContextOptions<StockContext> options): base(GetOptions())
         {
         }
-
-        public DbSet<Produs> Produs { get; set; }
-        public DbSet<ProdusInStoc> ProduseInStoc { get; set; }
-        public DbSet<Stoc> Stoc { get; set; }
-        public DbSet<ProdusInComanda> ProduseInComanda { get; set; }
-        public DbSet<Comanda> Comeanda { get; set; }
-        public DbSet<Furnizor> Furnizor { get; set; }
-        public DbSet<Angajat> Angajat { get; set; }
+        
+        
+       public DbSet<Product> Products { get; set; }
+    public DbSet<ProductInOrder> ProductsInOrders { get; set; }
+    public DbSet<Stock> Stocks { get; set; }
+    public DbSet<ProductInStock> ProductsInStocks { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
-            modelBuilder.Entity<Produs>().HasKey(p => p.ProdusId);
-            modelBuilder.Entity<ProdusInStoc>().HasKey(p => new { p.StocId, p.ProdusId });
-            modelBuilder.Entity<Stoc>().HasKey(s => s.StocId);
-            modelBuilder.Entity<ProdusInComanda>().HasKey(p => new { p.ComandaId, p.ProdusId });
-            modelBuilder.Entity<Comanda>().HasKey(c => c.ComandaId);
-            modelBuilder.Entity<Furnizor>().HasKey(f => f.FurnizorId);
-            modelBuilder.Entity<Angajat>().HasKey(a => a.AngajatId);
+            modelBuilder.Entity<ProductInOrder>()
+                .HasKey(pio => new { pio.OrderId, pio.ProductId });
 
-           
-            modelBuilder.Entity<ProdusInStoc>()
-                .HasOne(pis => pis.Produs)
-                .WithMany() 
-                .HasForeignKey(pis => pis.ProdusId);
-
-            modelBuilder.Entity<ProdusInStoc>()
-                .HasOne(pis => pis.Stoc)
-                .WithMany() 
-                .HasForeignKey(pis => pis.StocId);
-
-            modelBuilder.Entity<ProdusInComanda>()
-                .HasOne(pic => pic.Produs)
-                .WithMany() 
-                .HasForeignKey(pic => pic.ProdusId);
-
-            modelBuilder.Entity<ProdusInComanda>()
-                .HasOne(pic => pic.Comanda)
-                .WithMany()
-                .HasForeignKey(pic => pic.ComandaId);
-
-            modelBuilder.Entity<Comanda>()
-                .HasOne(c => c.Furnizor)
-                .WithMany() 
-                .HasForeignKey(c => c.FurnizorId);
-
-            modelBuilder.Entity<Comanda>()
-                .HasOne(c => c.Angajat)
-                .WithMany() 
-                .HasForeignKey(c => c.AngajatId);
-
+            modelBuilder.Entity<ProductInStock>()
+                .HasKey(pis => new { pis.StockId, pis.ProductId });
            
         }
     }

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Compile Remove="ContextModels\NewFolder\**" />
+    
     <Content Remove="ContextModels\NewFolder\**" />
     <EmbeddedResource Remove="ContextModels\NewFolder\**" />
     <None Remove="ContextModels\NewFolder\**" />

@@ -6,7 +6,7 @@ namespace StockManagement.Server.DTOs
     public class StockDTO
     {
 
-        public int Stock_ID { get; set; }
+        public int StockId { get; set; }
 
         public string Location { get; set; }
 

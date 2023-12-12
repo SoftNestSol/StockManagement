@@ -5,7 +5,7 @@ namespace StockManagement.Server.DTOs
 {
     public class SupplierDTO
     {
-        public int Supplier_ID { get; set; }
+        public int SupplierId { get; set; }
 
         public string Name { get; set; }
 
