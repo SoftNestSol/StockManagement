@@ -21,6 +21,6 @@ namespace StockManagement.Server.Entities
 
         public int NumberOfProducts { get; set; }
 
-        public List<Product> Products { get; set;}
+        public List<ProductInOrder> ProductInOrder { get; set; }
     }
 }
