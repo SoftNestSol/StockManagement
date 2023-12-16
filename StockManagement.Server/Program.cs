@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StockManagement.Server.ContextModels;
+using StockManagement.Server.Entities;
+using StockManagement.Server.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
 
 builder.Services.AddDbContext<StockContext>(options =>
 {
