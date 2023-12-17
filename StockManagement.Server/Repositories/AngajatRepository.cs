@@ -16,6 +16,9 @@ namespace StockManagement.Server.Repositories
 
         public async Task<List<Employee>> GetEmployeesAsync()
         {
+            var employees = await _context.Employees.ToListAsync();
+            Console.WriteLine(employees);
+
             return await _context.Employees.ToListAsync();
         }
 
@@ -35,6 +38,7 @@ namespace StockManagement.Server.Repositories
         {
             _context.Entry(employee).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+            Console.WriteLine(employee.Name);
             return employee;
         }
 
