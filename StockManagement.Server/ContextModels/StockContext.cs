@@ -4,9 +4,8 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using StockManagement.Server.Entities;
 using StockManagement.Server.ContextModels;
 using System;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using StockManagement.Server.DTOs;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 
@@ -14,7 +13,7 @@ using StockManagement.Server.DTOs;
 namespace StockManagement.Server.ContextModels
 
 {
-    public class StockContext:DbContext
+    public class StockContext: IdentityDbContext <ApplicationUser>
     {
        
         public StockContext(DbContextOptions <StockContext> options):base(options)
@@ -32,6 +31,15 @@ namespace StockManagement.Server.ContextModels
         public DbSet<ProductInStock> ProductInStock { get; set; }    
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder);
+
+
+             modelBuilder.Entity<ApplicationUser>()
+            .HasOne(a => a.Employee)
+            .WithOne(e => e.ApplicationUser)
+            .HasForeignKey<ApplicationUser>(a => a.EmployeeId);
+
             modelBuilder.Entity<ProductInStock>()
        .HasKey(pis => new { pis.ProductId, pis.StockId }); 
 

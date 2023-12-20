@@ -15,9 +15,10 @@ namespace StockManagement.Server.Entities
 
         public string Email { get; set; }
 
-        public string HashedPassword { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string ApplicationUserId { get; set; }
+
 }
 
 }

@@ -7,7 +7,7 @@ using StockManagement.Server.Entities;
 using StockManagement.Server.Repositories;
 
 [ApiController]
-[Route("api/[controller]")] // Changed route
+[Route("api/[controller]")] 
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeRepository _employeeRepository;
