@@ -1,5 +1,4 @@
 ﻿using StockManagement.Server.Entities;
-using 
 namespace StockManagement.Server.Repositories
 {
     public interface IProductRepository

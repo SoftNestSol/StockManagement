@@ -17,8 +17,8 @@ namespace StockManagement.Server.Repositories
 
         public async Task<Stock> AddStockAsync(Stock Stock)
         {
-            _stockContext.Stocks.Add(Stock);
-            return Stock;
+             _stockContext.Stocks.Add(Stock);
+             return Stock;
 
 
         }

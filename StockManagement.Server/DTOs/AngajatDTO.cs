@@ -19,6 +19,8 @@ namespace StockManagement.Server.DTOs
 
         public string PhoneNumber { get; set; }
 
+        public string ApplicationUserId { get; set; }
+
     }
   
 }
