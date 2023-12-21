@@ -28,4 +28,17 @@ public class EmployeeController : ControllerBase
            
         return employeesDTO;
     }
+
+    [HttpPost]
+
+    public async Task<EmployeeDTO> AddEmployee(Employee employee)
+    {
+        var Employee = await _employeeRepository.AddEmployeeAsync(employee);
+        var EmployeeDTO =  _autoMapper.Map<EmployeeDTO>(Employee);
+        return EmployeeDTO;
+    }
+
+    [HttpPut]
+
+    public async Task<>
 }

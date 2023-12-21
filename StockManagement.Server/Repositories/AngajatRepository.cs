@@ -1,6 +1,6 @@
-using StockManagement.Server.Entities;
-using StockManagement.Server.ContextModels;
 using Microsoft.EntityFrameworkCore;
+using StockManagement.Server.ContextModels;
+using StockManagement.Server.Entities;
 
 
 namespace StockManagement.Server.Repositories
