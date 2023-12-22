@@ -14,7 +14,7 @@ builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 
-builder.Services.AddIdentityCore<ApplicationUser>()
+builder.Services.AddIdentityCore<ApplicationUser>(options =>options.SignIn.RequireConfirmedAccount =false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StockContext>();
 
@@ -77,5 +77,16 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
+
+using(var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roles = new[] { "Admin" ,"AngajatTier1", "AngajatTier2", "AngajatTier3" };
+    foreach(var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role)) ;
+        await roleManager.CreateAsync(new IdentityRole(role)); 
+    }
+}
 
 app.Run();

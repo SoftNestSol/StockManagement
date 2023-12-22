@@ -11,6 +11,7 @@ namespace StockManagement.Server.DTOs
 
         public string Surname { get; set; }
 
+        public string Role { get; set; }
         public string Job { get; set; }
 
         public string Email { get; set; }

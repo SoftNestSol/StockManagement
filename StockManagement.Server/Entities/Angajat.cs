@@ -14,7 +14,7 @@ namespace StockManagement.Server.Entities
         public string Job { get; set; }
 
         public string Email { get; set; }
-
+        public string Role { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         public string ApplicationUserId { get; set; }

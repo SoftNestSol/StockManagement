@@ -44,7 +44,7 @@ public async Task<ActionResult<EmployeeDTO>> AddEmployee([FromBody]EmployeeDTO e
     };
 
     var result = await _userManager.CreateAsync(user, employee.Password);
-
+        var result2 = await _userManager.AddToRoleAsync(user, employee.Role);
     if (!result.Succeeded)
     {
         return BadRequest(result.Errors);
