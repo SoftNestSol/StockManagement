@@ -6,11 +6,11 @@ using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace StockManagement.Server.Repositories
 {
-    public class ComandaRepository : IOrderRepository
+    public class OrderRepository : IOrderRepository
     {
         public readonly StockContext _stockContext;
 
-        public ComandaRepository(StockContext stockContext)
+        public OrderRepository(StockContext stockContext)
         {
             _stockContext = stockContext;
         }

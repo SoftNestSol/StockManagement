@@ -1,13 +1,13 @@
 ﻿using StockManagement.Server.Entities;
 namespace StockManagement.Server.Repositories
 {
-    public interface IOrderRepository
+    public interface IStockRepository
     {
-        Task<Order> GetOrderAsync(int id);
-        Task<List<Order>> GetOrdersAsync();
-        Task<Order> AddOrderAsync(Order order);
-        Task DeleteOrderAsync(int id);
-        Task<Order> UpdateOrderAsync(int id,Order order);
+        Task<Stock> GetStockAsync(int id);
+        Task<List<Stock>> GetStocksAsync();
+        Task<Stock> AddStockAsync(Stock Stock);
+        Task DeleteStockAsync(int id);
+        Task<Stock> UpdateStockAsync(int id,Stock Stock);
 
         
 
