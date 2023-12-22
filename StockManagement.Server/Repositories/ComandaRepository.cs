@@ -3,6 +3,7 @@ using StockManagement.Server.ContextModels;
 using StockManagement.Server.Entities;
 using System.Data.Entity;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
+using System.Linq;
 
 namespace StockManagement.Server.Repositories
 {
@@ -54,5 +55,15 @@ namespace StockManagement.Server.Repositories
             await _stockContext.SaveChangesAsync();
             return order;
         }
+
+        public async Task<List<Product>> GetProductsInOrderAsync(int orderId)
+        {
+            var products = await _stockContext.ProductInOrder
+            .Where(pio => pio.OrderId == orderId)
+            .Select(pio => pio.Product)
+            .ToListAsync();
+            return products;
+        }
+        
     }
 }
