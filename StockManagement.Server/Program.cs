@@ -18,8 +18,12 @@ builder.Services.AddIdentityCore<ApplicationUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StockContext>();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<StockContext>();
+
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        .AddEntityFrameworkStores<StockContext>()
+        .AddDefaultTokenProviders();
+
 
 
 builder.Services.AddDbContext<StockContext>(options =>
