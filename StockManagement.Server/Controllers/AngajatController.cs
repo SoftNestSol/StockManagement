@@ -91,7 +91,7 @@ public async Task<ActionResult<int>> GetLastEmployeeId()
     var lastEmployee = await _stockContext.Employees.OrderByDescending(e => e.EmployeeId).FirstOrDefaultAsync();
     if (lastEmployee == null)
     {
-        return 0; // Or appropriate default value
+        return 0; 
     }
     return lastEmployee.EmployeeId;
 }
