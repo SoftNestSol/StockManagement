@@ -12,5 +12,6 @@ namespace StockManagement.Server.Entities
 
         public int? EmployeeId { get; set; }
 
+
     }
 }
