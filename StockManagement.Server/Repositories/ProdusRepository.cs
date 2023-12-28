@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StockManagement.Server.ContextModels;
 using StockManagement.Server.Entities;
-using System.Data.Entity;
-using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace StockManagement.Server.Repositories
 {

@@ -11,6 +11,7 @@ function AddEmp() {
         Email: '',
         Password: '',
         PhoneNumber: '',
+        Role:'',
         ApplicationUserId: ''
 
     });
@@ -99,6 +100,13 @@ function AddEmp() {
                 value={employee.PhoneNumber}
                 onChange={handleChange}
                 placeholder="PhoneNumber"
+            />
+            <input
+                type="text"
+                name="Role"
+                value={employee.Role}
+                onChange={handleChange}
+                placeholder="Role"
             />
             <button type="submit">Add Employee</button>
         </form>

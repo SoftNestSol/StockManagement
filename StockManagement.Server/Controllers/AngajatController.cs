@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 
 [ApiController]
-[Route("api/[controller]")] 
+[Route("api/[controller]")]
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeRepository _employeeRepository;
@@ -26,41 +26,58 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<EmployeeDTO>> GetEmployees() 
+    public async Task<List<EmployeeDTO>> GetEmployees()
     {
         var employees = await _employeeRepository.GetEmployeesAsync();
-        var employeesDTO= _autoMapper.Map<List<EmployeeDTO>>(employees);
+        var employeesDTO = _autoMapper.Map<List<EmployeeDTO>>(employees);
         return employeesDTO;
     }
 
     [HttpPost]
-public async Task<ActionResult<EmployeeDTO>> AddEmployee([FromBody]EmployeeDTO employee)
-{
-    
-    var user = new ApplicationUser
+    public async Task<ActionResult<EmployeeDTO>> AddEmployee([FromBody] EmployeeDTO employee)
     {
-        UserName = employee.Email,
-        Email = employee.Email,
-    };
+        // Create new ApplicationUser
+        var user = new ApplicationUser
+        {
+            UserName = employee.Email,
+            Email = employee.Email,
+        };
 
-    var result = await _userManager.CreateAsync(user, employee.Password);
-        var result2 = await _userManager.AddToRoleAsync(user, employee.Role);
-    if (!result.Succeeded)
-    {
-        return BadRequest(result.Errors);
+        // Attempt to create the user
+        var createUserResult = await _userManager.CreateAsync(user, employee.Password);
+        if (!createUserResult.Succeeded)
+        {
+            return BadRequest(createUserResult.Errors);
+        }
+
+        // Save changes to ensure UserId is committed
+        await _stockContext.SaveChangesAsync();
+
+        // Check if the role exists
+        /*var roleExists = await _userManager.RoleExistsAsync("Admin");
+        if (!roleExists)
+        {
+            // Handle the case where the role doesn't exist
+            // This could involve creating the role or returning an error
+        }*/
+
+        // Attempt to assign the role
+        var addToRoleResult = await _userManager.AddToRoleAsync(user, "Admin");
+        if (!addToRoleResult.Succeeded)
+        {
+            return BadRequest(addToRoleResult.Errors);
+        }
+
+        // Map DTO to Employee entity
+        var employeeEntity = _autoMapper.Map<Employee>(employee);
+        employeeEntity.ApplicationUserId = user.Id;
+
+        // Create employee record
+        var createdEmployee = await _employeeRepository.AddEmployeeAsync(employeeEntity);
+        var createdEmployeeDTO = _autoMapper.Map<EmployeeDTO>(createdEmployee);
+
+        return Ok(createdEmployeeDTO);
     }
-
-   // await _userManager.AddToRoleAsync(user, "Employee");
-
-    var employeeEntity = _autoMapper.Map<Employee>(employee);
-    employeeEntity.ApplicationUserId = user.Id; 
-    var createdEmployee = await _employeeRepository.AddEmployeeAsync(employeeEntity);
-    
-    var createdEmployeeDTO = _autoMapper.Map<EmployeeDTO>(createdEmployee);
-
-    return Ok(createdEmployeeDTO); 
-}
-
 
     [HttpDelete("{id}")]
     public async Task DeleteEmployee(int id)
