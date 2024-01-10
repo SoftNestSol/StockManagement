@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -21,20 +23,21 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const resp = await axios.post('http://localhost:5122/api/login',user, {
+            const response = await axios.post('http://localhost:5122/api/login', user, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
-            },
-           );
-            console.log("a mers", resp);
+            });
+    
+            const token = response.data.token;
+            localStorage.setItem('jwtToken', token); 
+    
+            console.log("Login successful", jwtDecode(token));
+        } catch (error) {
+            console.error("Login failed", error);
         }
-       catch (error) {
-            console.error(error);
-            console.log("asdasdas");
-        }
-
     };
+    
 
     return (
         <div>

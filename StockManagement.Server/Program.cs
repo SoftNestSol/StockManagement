@@ -84,7 +84,7 @@ using(var scope = app.Services.CreateScope())
     var roles = new[] { "Admin" ,"AngajatTier1", "AngajatTier2", "AngajatTier3" };
     foreach(var role in roles)
     {
-        if (!await roleManager.RoleExistsAsync(role)) ;
+        if (!await roleManager.RoleExistsAsync(role))
         await roleManager.CreateAsync(new IdentityRole(role)); 
     }
 }

@@ -8,18 +8,21 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 [Route("api/[controller]")]
 [ApiController]
 public class LoginController : ControllerBase
 {
     private readonly SignInManager<ApplicationUser> signInManager;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly IConfiguration configuration;
 
-    public LoginController(SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+    public LoginController(SignInManager<ApplicationUser> signInManager, IConfiguration configuration, UserManager<ApplicationUser> userManager)
     {
         this.signInManager = signInManager;
         this.configuration = configuration;
+        this._userManager = userManager;
     }
 
     [HttpPost]
@@ -40,7 +43,7 @@ public class LoginController : ControllerBase
                 throw new ArgumentException("Username cannot be null or empty", nameof(model.username));
             }
 
-            var token = GenerateJwtToken(model.username); // Assuming Username is unique
+            var token = await GenerateJwtToken(model.username); // Assuming Username is unique
             return Ok(new {token});
         }
         else
@@ -49,7 +52,7 @@ public class LoginController : ControllerBase
         }
     }
 
-    private string GenerateJwtToken(string username)
+    private async Task <string> GenerateJwtToken(string username)
     {
         if (string.IsNullOrEmpty(username))
         {
@@ -57,6 +60,7 @@ public class LoginController : ControllerBase
         }
 
         var jwtKey = configuration["JwtKey"];
+
         if (string.IsNullOrEmpty(jwtKey))
         {
             throw new InvalidOperationException("JWT key is not configured properly.");
@@ -76,6 +80,7 @@ public class LoginController : ControllerBase
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var roles = await _userManager.GetRolesAsync(await _userManager.FindByNameAsync(username));
 
         var token = new JwtSecurityToken(
             issuer: issuer,
@@ -83,6 +88,7 @@ public class LoginController : ControllerBase
             claims: new[]
             {
             new Claim(JwtRegisteredClaimNames.Sub, username),
+            new Claim(ClaimTypes.Role, roles.FirstOrDefault()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             },
             expires: DateTime.Now.AddMinutes(30),
