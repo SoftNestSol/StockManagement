@@ -8,7 +8,14 @@ function AngajatController() {
 
     async function getEmployees() {
         try {
-            const resp = await axios.get('http://localhost:5122/api/employee');
+           const response = await axios.get('http://localhost:5122/api/employee', {
+            'headers': {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+                'Content-Type': 'application/json'
+            }
+        }
+           );
+        
             console.log(resp.data);
             setEmployees(resp.data);
         }

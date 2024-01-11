@@ -27,6 +27,7 @@ function Login() {
             const response = await axios.post('http://localhost:5122/api/login', user, {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')                    
                 }
             });
     
