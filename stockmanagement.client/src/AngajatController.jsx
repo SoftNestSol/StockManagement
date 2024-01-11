@@ -13,11 +13,11 @@ function AngajatController() {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
                 'Content-Type': 'application/json'
             }
+           
         }
            );
-        
-            console.log(resp.data);
-            setEmployees(resp.data);
+           console.log(response.data);
+           // setEmployees(resp.data);
         }
         catch (error) {
             console.error(error);

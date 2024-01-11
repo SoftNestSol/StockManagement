@@ -15,13 +15,6 @@ export const AuthContextProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
-        if (token) {
-            const decodedToken = jwtDecode(token);
-            setUser(decodedToken);
-        }
-    }, [user]);
 
     const login = (token) => {
         localStorage.setItem('jwtToken', token);
