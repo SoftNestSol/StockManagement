@@ -7,7 +7,7 @@ using StockManagement.Server.Entities;
 using StockManagement.Server.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -24,7 +24,7 @@ public class EmployeeController : ControllerBase
         _autoMapper = autoMapper;
         _userManager = userManager;
     }
-
+    [Authorize]
     [HttpGet]
     public async Task<List<EmployeeDTO>> GetEmployees()
     {
@@ -32,7 +32,7 @@ public class EmployeeController : ControllerBase
         var employeesDTO = _autoMapper.Map<List<EmployeeDTO>>(employees);
         return employeesDTO;
     }
-
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<EmployeeDTO>> AddEmployee([FromBody] EmployeeDTO employee)
     {

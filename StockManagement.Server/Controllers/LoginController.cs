@@ -9,7 +9,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
-
+using Microsoft.AspNetCore.Authorization;
+[AllowAnonymous]
 [Route("api/[controller]")]
 [ApiController]
 public class LoginController : ControllerBase
@@ -24,7 +25,7 @@ public class LoginController : ControllerBase
         this.configuration = configuration;
         this._userManager = userManager;
     }
-
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {

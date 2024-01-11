@@ -6,7 +6,6 @@ import { jwtDecode } from 'jwt-decode';
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
     const user ={
         username: username,
         password: password
@@ -31,7 +30,7 @@ function Login() {
     
             const token = response.data.token;
             localStorage.setItem('jwtToken', token); 
-    
+            
             console.log("Login successful", jwtDecode(token));
         } catch (error) {
             console.error("Login failed", error);
@@ -53,7 +52,7 @@ function Login() {
                     <input type="password" value={password} onChange={handlePasswordChange} />
                 </label>
                 <br />
-                <button type="submit">Login</button>
+                <button type="submit" >Login</button>
             </form>
         </div>
     );
