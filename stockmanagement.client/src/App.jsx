@@ -1,16 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AddEmp from './AddEmp';
-import Login from './Login';
-import AngajatController from './AngajatController';
+import AddEmp from './pages/AddEmp';
+import Login from './pages/Login';
+import AngajatController from './pages/AngajatController';
+import Dashboard from './pages/DashBoard';
 
 function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<AddEmp />} />
+                <Route path="/create-employee" element={<AddEmp />} />
                 <Route path="/angajat" element={<AngajatController />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/dashboard" element={<Dashboard/>} />
             </Routes>
         </Router>
     );

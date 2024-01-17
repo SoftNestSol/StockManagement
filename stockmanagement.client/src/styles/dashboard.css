@@ -1,0 +1,52 @@
+.dashboard {
+  font-family: "Arial", sans-serif;
+}
+
+.search-bar {
+  margin: 10px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.quick-access h2,
+.all-options h2 {
+  margin-left: 10px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.card {
+  width: 100px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  text-align: center;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-size: 14px;
+  color: #333;
+}/*# sourceMappingURL=dashboard.css.map */
