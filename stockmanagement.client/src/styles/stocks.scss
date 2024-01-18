@@ -1,0 +1,38 @@
+// StockOptions.module.scss
+.stockOptionsContainer {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        
+        .card-icon {
+            width: 100%;
+            height: auto;
+        }
+
+        .card-title {
+            padding: 10px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+    }
+
+    .addStockButton {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+}

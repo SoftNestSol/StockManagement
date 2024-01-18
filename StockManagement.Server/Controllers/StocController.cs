@@ -32,13 +32,13 @@ public class StockController : ControllerBase
         return stocksDTO;
     }
 
+
     [HttpPost]
 public async Task<ActionResult<StockDTO>> AddStock([FromBody]StockDTO stock)
 {
     
     var stockEntity = _autoMapper.Map<Stock>(stock);
     var createdStock = await _stockRepository.AddStockAsync(stockEntity);
-    
     var createdStockDTO = _autoMapper.Map<StockDTO>(createdStock);
     return Ok(createdStockDTO);
 
@@ -59,7 +59,6 @@ public async Task<ActionResult> DeleteStock(int id)
 {
     await _stockRepository.DeleteStockAsync(id);
     return Ok();
-
 }
 
 

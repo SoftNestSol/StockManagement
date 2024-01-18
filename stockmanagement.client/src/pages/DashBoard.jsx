@@ -3,16 +3,9 @@ import {jwtDecode} from 'jwt-decode';
 import {useNavigate} from 'react-router-dom';
 import '../styles/dashboard.css';
 import { Link } from 'react-router-dom';
+import Card from '../components/cards';
 
 
-const Card = ({ imgSrc, title }) => {
-    return (
-      <div className="card">
-        <img src={imgSrc} alt={title} className="card-icon" />
-        <div className="card-title">{title}</div>
-      </div>
-    );
-  };
 
 
 

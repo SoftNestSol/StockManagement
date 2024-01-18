@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import AddEmp from './AddEmp';
+import AddEmp from './AddEmployee';
+
 function AngajatController() {
     const [employees, setEmployees] = useState([]);
     const [deleteId, setDeleteId] = useState('');

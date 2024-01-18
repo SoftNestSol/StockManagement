@@ -15,6 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>options.SignIn.RequireConfirmedAccount =false)

@@ -17,9 +17,9 @@ namespace StockManagement.Server.Repositories
         {
              _stockContext.Stocks.Add(Stock);
              return Stock;
-
-
         }
+
+      
 
         public async Task DeleteStockAsync(int id)
         {
