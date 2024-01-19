@@ -13,6 +13,20 @@
     }
   }
   
+  .search-input {
+    width: 100%;
+    padding: 8px 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
+  
   .product-list {
     display: flex;
     flex-direction: column;
