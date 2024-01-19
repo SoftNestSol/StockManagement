@@ -16,11 +16,13 @@ public class ProductController : ControllerBase
     private readonly IProductRepository _productRepository;
     private readonly StockContext _stockContext;
     private readonly IMapper _autoMapper;
-    public ProductController(IProductRepository productRepository, StockContext stockContext, IMapper autoMapper)
+    private readonly IProductInStockRepository _productInStockRepository;
+    public ProductController(IProductRepository productRepository,IProductInStockRepository productInStockRepository, StockContext stockContext, IMapper autoMapper)
     {
         _stockContext = stockContext;
         _productRepository = productRepository;
         _autoMapper = autoMapper;
+        _productInStockRepository = productInStockRepository;
     }
 
     [HttpGet]
@@ -32,18 +34,33 @@ public class ProductController : ControllerBase
     }
 
 
-    [HttpPost]
-public async Task<ActionResult<ProductDTO>> AddProduct([FromBody]ProductDTO product)
+    [HttpPost("add")]    
+    public async Task<ActionResult<ProductDTO>> AddProduct([FromBody]ProductDTO product)
 {
-    
+    Console.WriteLine(product.Name);
     var productEntity = _autoMapper.Map<Product>(product);
     var createdProduct = await _productRepository.AddProductAsync(productEntity);
     
     var createdProductDTO = _autoMapper.Map<ProductDTO>(createdProduct);
+    await _stockContext.SaveChangesAsync();
+
     return Ok(createdProductDTO);
 }
 
-[HttpPut("{id}")]
+
+    [HttpPost("addToStock")]
+    public async Task<ActionResult<ProductInStockDTO>> AddProductToStock([FromBody] ProductInStockDTO inStock)
+    {
+        var productInStockEntity = _autoMapper.Map<ProductInStock>(inStock);
+        var createdEntry = await _productInStockRepository.AddProductInStockAsync(productInStockEntity);
+        var createdEntryDTO = _autoMapper.Map<ProductInStockDTO>(createdEntry);
+        await _stockContext.SaveChangesAsync(); 
+        return Ok(createdEntryDTO);
+
+    }
+
+
+    [HttpPut("{id}")]
 public async Task<ActionResult<ProductDTO>> UpdateProduct(int id, [FromBody]ProductDTO product)
 {
     var productEntity = _autoMapper.Map<Product>(product);

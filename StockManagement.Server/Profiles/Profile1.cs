@@ -17,6 +17,8 @@ namespace StockManagement.Server.Profiles
             CreateMap<ProductDTO, Product>();
             CreateMap<Stock, StockDTO>();
             CreateMap<StockDTO, Stock>();
+            CreateMap<ProductInStock, ProductInStockDTO>();
+            CreateMap<ProductInStockDTO, ProductInStock>();
         }
     }
 }

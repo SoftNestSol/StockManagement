@@ -63,7 +63,7 @@ namespace StockManagement.Server.ContextModels
 
             modelBuilder.Entity<ProductInOrder>()
                 .HasOne(pio => pio.Order)
-                .WithMany(o => o.ProductInOrder)
+                .WithMany(o => o.ProductInOrder)                
                 .HasForeignKey(pio => pio.OrderId);
 
         }

@@ -12,6 +12,7 @@ namespace StockManagement.Server.Entities
         public Product Product { get; set; }
         public int Quantity { get; set; }
 
+        public int UnitsSold { get; set; }
     }
   
 }

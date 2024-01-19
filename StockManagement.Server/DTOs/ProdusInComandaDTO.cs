@@ -1,4 +1,4 @@
-using System;
+    using System;
 
 
 namespace StockManagement.Server.DTOs
@@ -12,6 +12,7 @@ namespace StockManagement.Server.DTOs
 
         public int Quantity { get; set; }
 
+        public int UnitsSold { get; set; }
     }
   
 }
