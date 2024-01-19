@@ -72,7 +72,7 @@ builder.Services.AddCors(options =>
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -80,12 +80,6 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "StockManagement API V1");
-    c.RoutePrefix = string.Empty;
-});
 
 app.UseCors("AllowAll");
 

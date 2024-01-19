@@ -1,5 +1,4 @@
 import {useContext, createContext, useEffect, useState} from 'react';
-import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
 
 const StockContext = createContext();

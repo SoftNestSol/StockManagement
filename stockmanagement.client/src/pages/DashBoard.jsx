@@ -54,12 +54,19 @@ const Dashboard = () => {
         <div className="all-options">
           <h2>All Options</h2>
           <div className="card-container">
-            <Card imgSrc="meeting.png" title="Angajati" />
-            <Card imgSrc="electric.png" title="Produse" />
+                <Link to = "/angajat">
+                <Card imgSrc="meeting.png" title="Angajati" />
+                </Link>
+                <Link to = "/produs">
+                <Card imgSrc="electric.png" title="Produse" />
+                </Link>
+                <Link to = "/comanda">
                 <Card imgSrc="order-delivery.png" title="Comenzi " />
+                </Link>
+                <Link to = "/stoc">
                 <Card imgSrc="box.png" title="Stocuri" />
-            
-          </div>
+                </Link>
+        </div>
         </div>
       </div>
     );

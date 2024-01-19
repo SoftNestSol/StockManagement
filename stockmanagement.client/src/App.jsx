@@ -5,11 +5,14 @@ import Login from './pages/Login';
 import AngajatController from './pages/EmpOptions';
 import Dashboard from './pages/DashBoard';
 import StockOptions from './pages/StockOptions';
+import ProductOptions from './pages/ProductOptions';
 import { StockContextProvider } from './contexts/stockContext';
+import { ProductContextProvider } from './contexts/productContext';
 
 function App() {
     return (
         <StockContextProvider>
+        <ProductContextProvider>
         <Router>
             <Routes>
                 <Route path="/create-employee" element={<AddEmp />} />
@@ -17,9 +20,11 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard/>} />
                 <Route path="*" element={<h1>Not Found</h1>} />
+                <Route path="/produs" element={<ProductOptions/>} />
                 <Route path="/stoc" element={<StockOptions/>} />
             </Routes>
         </Router>
+        </ProductContextProvider>
         </StockContextProvider>
     );
 }
