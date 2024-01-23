@@ -10,6 +10,16 @@ import { StockContextProvider } from './contexts/stockContext';
 import { ProductContextProvider } from './contexts/productContext';
 
 function App() {
+
+
+    const options = [
+        { id: 1, name: 'Vezi Produse', componentKey: 'GetProducts' },
+        { id: 2, name: 'Adauga Produs', componentKey: 'AddProduct' },
+        { id: 3, name: 'Vezi Produs', componentKey: 'GetProductId' },
+        // alte opțiuni
+      ];
+      
+
     return (
         <StockContextProvider>
         <ProductContextProvider>
@@ -18,7 +28,7 @@ function App() {
                 <Route path="/create-employee" element={<AddEmp />} />
                 <Route path="/angajat" element={<AngajatController />} />
                 <Route path="/" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard/>} />
+                <Route path="/dashboard" element={<Dashboard options={options} />} />
                 <Route path="*" element={<h1>Not Found</h1>} />
                 <Route path="/produs" element={<ProductOptions/>} />
                 <Route path="/stoc" element={<StockOptions/>} />

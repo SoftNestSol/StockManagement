@@ -1,19 +1,31 @@
 import {useState, useEffect} from 'react';
 import {jwtDecode} from 'jwt-decode';
 import {useNavigate} from 'react-router-dom';
-import '../styles/dashboard.css';
+import '../styles/dashboard.scss';
 import { Link } from 'react-router-dom';
 import Card from '../components/cards';
+import SearchBar from '../components/SearchBar';
+import componentMapping from '../components/ComponenteMapper';
 
 
 
 
-
-const Dashboard = () => {
+const Dashboard = ({options}) => {
 
     const [user, setUser] = useState(null);
     const Navigate = useNavigate();
-
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredOptions, setFilteredOptions] = useState([]);
+    useEffect(() => {
+      if (searchTerm) {
+        const filtered = options.filter(option =>
+          option.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredOptions(filtered);
+      } else {
+        setFilteredOptions([]);
+      }
+    }, [searchTerm, options]);
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
         if (token) {
@@ -31,8 +43,14 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-        <div className="search-bar">
-          <input type="text" placeholder="Search Option" />
+        <SearchBar className='option-search'  onSearch={setSearchTerm} />
+        <div className='searched-options'>
+        {filteredOptions.map(option => {
+          console.log(option);
+          const Component = componentMapping[option.componentKey];
+          return Component ? <Component key={option.id} /> : null;
+        })}
+
         </div>
         <div className="quick-access">
           <h2>Quick access</h2>
