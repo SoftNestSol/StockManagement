@@ -12,6 +12,8 @@ namespace StockManagement.Server.DTOs
 
         public int NumberOfProducts { get; set; }
 
+        public List<ProductInStockDTO> ProductInStock { get; set; }
+
 
     }
 }
