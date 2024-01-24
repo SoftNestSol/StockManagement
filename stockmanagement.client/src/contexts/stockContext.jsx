@@ -43,15 +43,15 @@ export const StockContextProvider = ({ children }) => {
 
 
     const getProductsInstock = async (id) => {
-
-        await axios.get(`http://localhost:5122/api/stock/${id}`).then((response) => {
-            console.log(response.data);
+        try {
+            const response = await axios.get(`http://localhost:5122/api/stock/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return [];
         }
-        ).catch((error) => {
-            console.log(error);
-        });
-
-    }
+    };
+    
 
 
     const state = {

@@ -6,18 +6,30 @@ import "../styles/stocks.css";
 
 import Card from '../components/cards';
 
-const StockPage = (id) =>
+
+const StockPage = () =>
 {
+    const id = window.location.pathname.split('/')[2];
 
     const {getProductsInstock} = useStockContext();
 
     const [products, setProducts] = useState([]);
+    
 
-    useEffect(() =>
-    {
-       setProducts(getProductsInstock(id));
+    useEffect(() => {
 
+        const getProducts = async () => {
+            const products = await getProductsInstock(id);
+            setProducts(products);
+        }
+
+        getProducts();
+     
     }, []);
+
+   
+    
+    
 
     return (
         <div className="stockPageContainer">

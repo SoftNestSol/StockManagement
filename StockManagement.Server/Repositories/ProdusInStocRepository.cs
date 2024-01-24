@@ -38,7 +38,7 @@ namespace StockManagement.Server.Repositories
 
             public async Task<List<ProductInStock>> GetProductsInStockAsync(int StocId)
             {
-                var ProductInStocks = await _stockContext.ProductInStock.Where(x => x.StockId == StocId).ToListAsync();
+                var ProductInStocks = await _stockContext.ProductInStock.Where(pis => pis.StockId == StocId).ToListAsync();
                 return ProductInStocks;
             }
 

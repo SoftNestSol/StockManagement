@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const StockOptions = () => {
     const { stocks, getStocks, AddStock } = useStockContext();
-    const [showStocks, setShowStocks] = useState(true);
+    const [showStocks, setShowStocks] = useState(false);
     const [addStock, setAddStock] = useState(false);
 
     console.log(stocks);

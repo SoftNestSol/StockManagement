@@ -64,7 +64,7 @@ const Dashboard = ({options}) => {
                 <Link to = "/comanda">
                 <Card imgSrc="order-delivery.png" title="Comenzi " />
                 </Link>
-                <Link to = "/stoc">
+                <Link to = "/stock">
                 <Card imgSrc="box.png" title="Stocuri" />
                 </Link>
         </div>

@@ -37,7 +37,7 @@ public class StockController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<StockDTO>> GetStock(int id)
+    public async Task<ActionResult<List<ProductDTO>>> GetStock(int id)
     {
         var stock = await _stockRepository.GetStockAsync(id);
         if (stock == null)
@@ -45,13 +45,27 @@ public class StockController : ControllerBase
             return NotFound();
         }
 
-        var products = await _produsInStocRepository.GetProductsInStockAsync(id);
-        var stockDTO = _autoMapper.Map<StockDTO>(stock);
-        stockDTO.ProductInStock = _autoMapper.Map<List<ProductInStockDTO>>(products);
+        var products = await _produsInStocRepository.GetProductsInStockAsync(stock.StockId);
 
-        return stockDTO;
+        var productIds = products.Select(p => p.ProductId).ToList();
+        var joinedProducts = await _stockContext.Products
+            .Join(_stockContext.ProductInStock,
+                product => product.ProductId,
+                productInStock => productInStock.ProductId,
+                (product, productInStock) => new { Product = product, ProductInStock = productInStock })
+            .Where(joinedProduct => productIds.Contains(joinedProduct.Product.ProductId))
+            .Select(joinedProduct => new ProductDTO
+            {
+                ProductId = joinedProduct.Product.ProductId,
+                Name = joinedProduct.Product.Name,
+                Description = joinedProduct.Product.Description,
+                Price = joinedProduct.Product.Price,
+                Quantity = joinedProduct.ProductInStock.Quantity
+            })
+            .ToListAsync();
+
+        return joinedProducts;
     }
-
 
     [HttpPost]
 public async Task<ActionResult<StockDTO>> AddStock([FromBody]StockDTO stock)
