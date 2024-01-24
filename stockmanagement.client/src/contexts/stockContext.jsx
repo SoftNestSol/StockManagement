@@ -1,6 +1,6 @@
 import {useContext, createContext, useEffect, useState} from 'react';
 import axios from 'axios';
-import { response } from 'express';
+
 
 const StockContext = createContext();
 

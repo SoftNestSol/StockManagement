@@ -32,6 +32,8 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard options={options} />} />
                 <Route path="*" element={<h1>Not Found</h1>} />
                 <Route path="/produs" element={<ProductOptions/>} />
+                        <Route path="/stock" element={<StockOptions></StockOptions>}></Route>
+                        <Route path="/stock/:id" element={<StockPage></StockPage> }></Route>
         
             </Routes>
         </Router>
