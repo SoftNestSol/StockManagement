@@ -8,6 +8,7 @@ import StockOptions from './pages/StockOptions';
 import ProductOptions from './pages/ProductOptions';
 import { StockContextProvider } from './contexts/stockContext';
 import { ProductContextProvider } from './contexts/productContext';
+import StockPage from './pages/stock-id.jsx';
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard options={options} />} />
                 <Route path="*" element={<h1>Not Found</h1>} />
                 <Route path="/produs" element={<ProductOptions/>} />
-                <Route path="/stoc" element={<StockOptions/>} />
+        
             </Routes>
         </Router>
         </ProductContextProvider>

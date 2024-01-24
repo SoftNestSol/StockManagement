@@ -1,5 +1,6 @@
 import {useContext, createContext, useEffect, useState} from 'react';
 import axios from 'axios';
+import { response } from 'express';
 
 const StockContext = createContext();
 
@@ -26,10 +27,39 @@ export const StockContextProvider = ({ children }) => {
             });
     };
 
+
+    const AddStock = async (stock) => {
+
+        await axios.post('http://localhost:5122/api/stock', stock)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        await getStocks();
+    }
+
+
+    const getProductsInstock = async (id) => {
+
+        await axios.get(`http://localhost:5122/api/stock/${id}`).then((response) => {
+            console.log(response.data);
+        }
+        ).catch((error) => {
+            console.log(error);
+        });
+
+    }
+
+
     const state = {
         getStocks,
         stocks,
-        stockLocations
+        stockLocations,
+        AddStock,
+        getProductsInstock
     };
 
     return (
