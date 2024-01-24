@@ -34,6 +34,15 @@ export const ProductContextProvider = ({children}) => {
                 console.log(error);
             });
     };
+    const deleteProduct = async (productId) => {
+        await axios.delete(`http://localhost:5122/api/product/${productId}`)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     const addProductToStock = async (productInStock) => {
         await axios.post('http://localhost:5122/api/product/addToStock', productInStock)
@@ -59,6 +68,7 @@ export const ProductContextProvider = ({children}) => {
         addProduct,
         addProductToStock,
         getProductById,
+        deleteProduct,
         product,
         products
     };

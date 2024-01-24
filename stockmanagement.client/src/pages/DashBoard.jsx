@@ -11,7 +11,7 @@ import componentMapping from '../components/ComponenteMapper';
 
 
 const Dashboard = ({options}) => {
-
+    console.log(options);
     const [user, setUser] = useState(null);
     const Navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');

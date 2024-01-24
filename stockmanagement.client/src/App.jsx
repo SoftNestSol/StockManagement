@@ -13,9 +13,9 @@ function App() {
 
 
     const options = [
-        { id: 1, name: 'Vezi Produse', componentKey: 'GetProducts' },
-        { id: 2, name: 'Adauga Produs', componentKey: 'AddProduct' },
-        { id: 3, name: 'Vezi Produs', componentKey: 'GetProductId' },
+        { id: 2, name: 'Vezi Produse', componentKey: 'GetProducts' },
+        { id: 3, name: 'Adauga Produs', componentKey: 'AddProduct' },
+        { id: 4, name: 'Vezi Produs', componentKey: 'GetProductId' },
         // alte opțiuni
       ];
       
