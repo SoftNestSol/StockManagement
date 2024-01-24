@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿c
 using StockManagement.Server.ContextModels;
 using StockManagement.Server.DTOs;
 using StockManagement.Server.Entities;

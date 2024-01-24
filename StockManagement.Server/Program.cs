@@ -20,7 +20,7 @@ builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IProductInStockRepository, ProductInStockRepository>();
 
 
-builder.Services.AddIdentityCore<ApplicationUser>(options =>options.SignIn.RequireConfirmedAccount =false)
+builder.Services.AddIdentityCore<ApplicationUser>(options =>options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StockContext>();
 

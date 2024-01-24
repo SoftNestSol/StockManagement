@@ -10,8 +10,8 @@ namespace StockManagement.Server.Entities
         public string Description { get; set; }
         public int Price { get; set; }
 
-        public List<ProductInOrder> ProductInOrder { get; set;}
-        public List<ProductInStock> ProductInStock { get; set;}
+        public List<ProductInOrder>? ProductInOrder { get; set;}
+        public List<ProductInStock>? ProductInStock { get; set;}
 
     }
 }
