@@ -61,7 +61,7 @@ public class EmployeeController : ControllerBase
             // This could involve creating the role or returning an error
         }*/
 
-        // Attempt to assign the role
+
         var addToRoleResult = await _userManager.AddToRoleAsync(user, "Admin");
         if (!addToRoleResult.Succeeded)
         {

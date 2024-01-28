@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AddEmp from './AddEmployee';
+import '../styles/Angajat.css';
 
 function AngajatController() {
     const [employees, setEmployees] = useState([]);
     const [deleteId, setDeleteId] = useState('');
+    const [showAddEmp, setShowAddEmp] = useState(false);
+    const [showDeleteEmp, setShowDeleteEmp] = useState(false);
+    const [showEmployees, setShowEmployees] = useState(false);
 
     async function getEmployees() {
         try {
@@ -17,7 +21,7 @@ function AngajatController() {
         }
            );
            console.log(response.data);
-           // setEmployees(resp.data);
+            setEmployees(response.data);
         }
         catch (error) {
             console.error(error);
@@ -48,27 +52,37 @@ function AngajatController() {
     }
 
     return (
-        <div>
+        <div className="controller">
             <h1>AngajatController</h1>
-            <button onClick={getEmployees}>Get Employees</button>
-            <ul>
-                {employees.map((emp) => (
-                    <li key={emp.employeeId}>{emp.employeeId} , {emp.name} {emp.surname}</li>
+            <div className="actions">
+                <button className="action-button" onClick={() => {getEmployees(); setShowEmployees(!showEmployees)}}>Get Employees</button>
+                <button className="action-button" onClick={() => setShowAddEmp(!showAddEmp)}>Add Employee</button>
+                <button className="action-button" onClick={() => setShowDeleteEmp(!showDeleteEmp)}>Delete Employee</button>
+            </div>
+
+            {showAddEmp && <AddEmp />}
+            {showDeleteEmp && (
+                <form onSubmit={handleDeleteSubmit} className="delete-form">
+                    <input
+                        type="number"
+                        placeholder="Enter Employee ID"
+                        value={deleteId}
+                        onChange={handleDeleteIdChange}
+                        min="1" 
+                    />
+                    <button type="submit">Delete Employee</button>
+                </form>
+            )}
+
+            <div className="employee-list">
+                {showEmployees && employees.map((emp) => (
+                    <div className="employee-card" key={emp.employeeId}>
+                        {emp.employeeId} , {emp.name} {emp.surname}
+                    </div>
                 ))}
-            </ul>
-            <AddEmp />
-            <form onSubmit={handleDeleteSubmit}>
-                <input
-                    type="number"
-                    placeholder="Enter Employee ID"
-                    value={deleteId}
-                    onChange={handleDeleteIdChange}
-                    min="1" // ID-urile încep de la 1
-                />
-                <button type="submit">Delete Employee</button>
-            </form>
+            </div>
         </div>
-    )
+    );
 }
 
 export default AngajatController;

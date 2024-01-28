@@ -8,11 +8,11 @@ namespace StockManagement.Server.DTOs
 
         public int StockId { get; set; }
 
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
         public int NumberOfProducts { get; set; }
 
-        public List<ProductInStockDTO> ProductInStock { get; set; }
+        public List<ProductInStockDTO>? ProductInStock { get; set; }
 
 
     }
