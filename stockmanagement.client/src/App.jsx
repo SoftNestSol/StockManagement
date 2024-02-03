@@ -17,7 +17,8 @@ function App() {
         { id: 2, name: 'Vezi Produse', componentKey: 'GetProducts' },
         { id: 3, name: 'Adauga Produs', componentKey: 'AddProduct' },
         { id: 4, name: 'Vezi Produs', componentKey: 'GetProductId' },
-        // alte opțiuni
+        { id: 5, name: 'Adauga Angajat', componentKey: 'AddEmp' },
+        { id: 6, name: 'Vezi Angajati', componentKey: 'GetEmp'}
       ];
       
 

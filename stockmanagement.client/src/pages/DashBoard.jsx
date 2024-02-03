@@ -16,6 +16,7 @@ const Dashboard = ({options}) => {
     const Navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredOptions, setFilteredOptions] = useState([]);
+    
     useEffect(() => {
       if (searchTerm) {
         const filtered = options.filter(option =>
@@ -26,6 +27,7 @@ const Dashboard = ({options}) => {
         setFilteredOptions([]);
       }
     }, [searchTerm, options]);
+
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
         if (token) {
