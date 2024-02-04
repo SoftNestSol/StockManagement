@@ -6,6 +6,7 @@ import AngajatController from './pages/EmpOptions';
 import Dashboard from './pages/DashBoard';
 import StockOptions from './pages/StockOptions';
 import ProductOptions from './pages/ProductOptions';
+import OrderOptions from './pages/OrderOptions';
 import { StockContextProvider } from './contexts/stockContext';
 import { ProductContextProvider } from './contexts/productContext';
 import StockPage from './pages/stock-id.jsx';
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/produs" element={<ProductOptions/>} />
                 <Route path="/stock" element={<StockOptions></StockOptions>}/>
                 <Route path="/stock/:id" element={<StockPage/>}/>
+                <Route path="/comanda" element={<OrderOptions/>}/>
         
             </Routes>
         </Router>

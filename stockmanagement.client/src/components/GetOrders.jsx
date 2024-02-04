@@ -1,6 +1,5 @@
 import {useState,useEffect} from 'react'; 
 import {useOrderContext} from '../contexts/orderContext';
-import '../styles/OrderOptions.scss';
 
 function GetOrders() {
   const { orders, getOrders, deleteOrder } = useOrderContext();
