@@ -6,8 +6,6 @@
     using StockManagement.Server.Entities;
     using StockManagement.Server.Repositories;
     using System.Drawing;
-    using System.Drawing.Common;
-    using QRCoder;
 
     namespace StockManagement.Server.Controllers
     {

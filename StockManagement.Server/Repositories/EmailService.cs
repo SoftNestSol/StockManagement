@@ -2,8 +2,8 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Drawing;
+using QRCoder;
 using System.Drawing.Imaging;
-using System.Drawing.Common;
 
 
 
@@ -11,6 +11,7 @@ using System.Drawing.Common;
 
 namespace StockManagement.Server.Repositories
 {
+
 
 public interface IEmailService
 {
@@ -42,7 +43,8 @@ public class EmailService : IEmailService
             to = new[] { new { email = to } },
             subject = subject,
             htmlContent = htmlContent,
-            attachments = new[] { new { name = "QRCode.png", content = Convert.ToBase64String(BitmapImage) } }
+            attachments = new[] { new { name = "QRCode.png", content = Convert.ToBase64String(BitmapToBytes(BitmapImage))}
+        }
         };
 
         var jsonContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(emailData), Encoding.UTF8, "application/json");
@@ -54,13 +56,18 @@ public class EmailService : IEmailService
         }
     }
 
+        private static byte[] BitmapToBytes(Bitmap bitmapImage)
+        {
+            var stream = new MemoryStream();
+            bitmapImage.Save(stream, ImageFormat.Png);
+            return stream.ToArray();
 
+        }
 
-
-    public Bitmap GenerateQRCode(string data)
+        public Bitmap GenerateQRCode(string data)
     {
         QRCodeGenerator qrGenerator = new QRCodeGenerator();
-        QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", QRCodeGenerator.ECCLevel.Q);
+        QRCodeData qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
         QRCode qrCode = new QRCode(qrCodeData);
         Bitmap qrCodeImage = qrCode.GetGraphic(20);
         return qrCodeImage;
