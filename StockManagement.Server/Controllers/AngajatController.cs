@@ -24,7 +24,7 @@ public class EmployeeController : ControllerBase
         _autoMapper = autoMapper;
         _userManager = userManager;
     }
-    [Authorize]
+    [Authorize(Roles = "Admin, AngajatTier1, AngajatTier2, AngajatTier3")]
     [HttpGet]
     public async Task<List<EmployeeDTO>> GetEmployees()
     {
@@ -32,35 +32,29 @@ public class EmployeeController : ControllerBase
         var employeesDTO = _autoMapper.Map<List<EmployeeDTO>>(employees);
         return employeesDTO;
     }
-    [Authorize]
+
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<EmployeeDTO>> AddEmployee([FromBody] EmployeeDTO employee)
     {
-        // Create new ApplicationUser
+
         var user = new ApplicationUser
         {
             UserName = employee.Email,
             Email = employee.Email,
         };
 
-        // Attempt to create the user
+
         var createUserResult = await _userManager.CreateAsync(user, employee.Password);
         if (!createUserResult.Succeeded)
         {
             return BadRequest(createUserResult.Errors);
         }
 
-        // Save changes to ensure UserId is committed
+        
         await _stockContext.SaveChangesAsync();
 
-        // Check if the role exists
-        /*var roleExists = await _userManager.RoleExistsAsync("Admin");
-        if (!roleExists)
-        {
-            // Handle the case where the role doesn't exist
-            // This could involve creating the role or returning an error
-        }*/
-
+        //create proper role here
 
         var addToRoleResult = await _userManager.AddToRoleAsync(user, "Admin");
         if (!addToRoleResult.Succeeded)
@@ -68,17 +62,18 @@ public class EmployeeController : ControllerBase
             return BadRequest(addToRoleResult.Errors);
         }
 
-        // Map DTO to Employee entity
+
         var employeeEntity = _autoMapper.Map<Employee>(employee);
         employeeEntity.ApplicationUserId = user.Id;
 
-        // Create employee record
+
         var createdEmployee = await _employeeRepository.AddEmployeeAsync(employeeEntity);
         var createdEmployeeDTO = _autoMapper.Map<EmployeeDTO>(createdEmployee);
 
         return Ok(createdEmployeeDTO);
     }
 
+    [Authorize(Roles = "Admin, AngajatTier3")]
     [HttpDelete("{id}")]
     public async Task DeleteEmployee(int id)
     {
@@ -86,6 +81,7 @@ public class EmployeeController : ControllerBase
         return;
     }
 
+    [Authorize(Roles = "Admin, AngajatTier1, AngajatTier2, AngajatTier3")]
     [HttpGet("{id}")]
     public async Task<EmployeeDTO> GetEmployee(int id)
     {
@@ -94,6 +90,7 @@ public class EmployeeController : ControllerBase
         return EmployeeDTO;
     }
 
+    [Authorize(Roles = "Admin, AngajatTier3")]
     [HttpPut("{id}")]
     public async Task<EmployeeDTO> UpdateEmployee(int id)
     {
@@ -102,6 +99,7 @@ public class EmployeeController : ControllerBase
         return EmployeeDTO;
     }
 
+    [Authorize]
     [HttpGet("lastid")]
 public async Task<ActionResult<int>> GetLastEmployeeId()
 {

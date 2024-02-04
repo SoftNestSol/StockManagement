@@ -11,7 +11,7 @@ using System.Text;
 
     namespace StockManagement.Server.Controllers
     {
-        [AllowAnonymous]
+        [Authorize]
         [Route("api/[controller]")]
         [ApiController]
         public class OrderController : ControllerBase
@@ -32,6 +32,8 @@ using System.Text;
                 _emailService = emailService;
 
             }
+
+            [Authorize(Roles = "Admin, AngajatTier1, AngajatTier2, AngajatTier3")]
             [HttpGet]
             public async Task<List<OrderDTO>> GetOrders()
             {
@@ -43,6 +45,7 @@ using System.Text;
 
             }
 
+            [Authorize(Roles = "Admin, AngajatTier1, AngajatTier2, AngajatTier3")]
             [HttpGet("{id}")]
             public async Task<OrderDTO> GetOrder(int id)
             {
@@ -53,41 +56,39 @@ using System.Text;
                 return orderDTO;
             }
 
+        [Authorize(Roles = "Admin, AngajatTier2, AngajatTier3")]
         [HttpPost("add")]
         public async Task<IActionResult> AddOrder([FromBody] OrderDTO orderDTO)
         {
-            // Verificați dacă furnizorul există înainte de orice operațiuni
+            
             var supplier = await _stockContext.Suppliers.FindAsync(orderDTO.SupplierId);
             if (supplier == null)
             {
                 return NotFound($"Supplier with ID {orderDTO.SupplierId} not found.");
             }
 
-            // Map the DTO to the domain model for the order
+           
             var order = _autoMapper.Map<Order>(orderDTO);
 
-            // Add the order to the repository first to ensure it has an ID for the products
+            
             await _orderRepository.AddOrderAsync(order);
-            // Ensure changes are saved to get an OrderId
-            /*await _stockContext.SaveChangesAsync();*/
-
-            // Iterate through the products in the order DTO
+   
             foreach (var productInOrderDTO in orderDTO.ProductInOrder)
             {
                 var productInOrderEntity = _autoMapper.Map<ProductInOrder>(productInOrderDTO);
 
-                // Verificați dacă există deja în context sau în baza de date
+              
                 var existingEntity = await _stockContext.ProductInOrder
                     .FindAsync(productInOrderDTO.ProductId, productInOrderDTO.OrderId);
 
                 if (existingEntity == null)
                 {
-                    // Dacă nu există, adăugați noua entitate
+               
                     await _productInOrderRepository.AddProductInOrderAsync(productInOrderEntity);
                 }
                 else
                 {
-                    // Dacă există, actualizați entitatea existentă
+        
                     _stockContext.Entry(existingEntity).CurrentValues.SetValues(productInOrderEntity);
                 }
 
@@ -95,11 +96,7 @@ using System.Text;
 
             await _stockContext.SaveChangesAsync();
 
-
-
-            // Save changes in the context after adding products
-
-            // Prepare the HTML content for the email
+           
             var htmlContentBuilder = new StringBuilder();
             htmlContentBuilder.Append("<h1>Order Confirmation</h1>")
                               .Append("<p>Here are the details of your order:</p>")
@@ -113,15 +110,17 @@ using System.Text;
 
             htmlContentBuilder.Append("</ul>");
 /*
-            // Send the email to the order recipient and supplier
+            // cheia api nu poate fi partajata, trebuie setata in .env 
             await _emailService.SendEmailAsync("recipient@example.com", "Order Confirmation", htmlContentBuilder.ToString());
-            await _emailService.SendEmailAsync(supplier.Email, "Order Request", htmlContentBuilder.ToString());*/
+            await _emailService.SendEmailAsync(supplier.Email, "Order Request", htmlContentBuilder.ToString());
+            
+            */
 
             return Ok();
         }
 
 
-
+        [Authorize(Roles = "Admin, AngajatTier2, AngajatTier3")]
         [HttpDelete("{id}")]
             public async Task<IActionResult> DeleteOrder(int id)
             {
@@ -135,6 +134,7 @@ using System.Text;
             {
                 var order = _autoMapper.Map<Order>(orderDTO);
 
+            //trebuie primit request de la scan-ul telefonului
             //  await _orderRepository.ReceiveOrderAsync(order);
 
                 return Ok();
