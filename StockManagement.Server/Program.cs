@@ -11,6 +11,9 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 
+
+
+builder.Services.AddHttpClient<IEmailService, EmailService>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
