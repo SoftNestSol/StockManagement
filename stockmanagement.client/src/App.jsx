@@ -9,6 +9,7 @@ import ProductOptions from './pages/ProductOptions';
 import OrderOptions from './pages/OrderOptions';
 import { StockContextProvider } from './contexts/stockContext';
 import { ProductContextProvider } from './contexts/productContext';
+import { OrderProvider } from './contexts/orderContext';
 import StockPage from './pages/stock-id.jsx';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       
 
     return (
+        <OrderProvider>
         <StockContextProvider>
         <ProductContextProvider>
         <Router>
@@ -42,6 +44,7 @@ function App() {
         </Router>
         </ProductContextProvider>
         </StockContextProvider>
+        </OrderProvider>
     );
 }
 

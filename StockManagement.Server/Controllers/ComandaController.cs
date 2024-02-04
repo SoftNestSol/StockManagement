@@ -51,52 +51,58 @@
                 return orderDTO;
             }
 
-            [HttpPost("add")]
-            public async Task<IActionResult> AddOrder([FromBody]OrderDTO orderDTO)
+        [HttpPost("add")]
+        public async Task<IActionResult> AddOrder([FromBody] OrderDTO orderDTO)
+        {
+            var order = _autoMapper.Map<Order>(orderDTO);
+            Console.WriteLine(orderDTO.OrderId);
+            Console.WriteLine(orderDTO.EmployeeId);
+
+            await _orderRepository.AddOrderAsync(order);
+            var productsInOrder = orderDTO.ProductInOrder;
+
+            foreach (var productInOrder in productsInOrder)
             {
-                var order = _autoMapper.Map<Order>(orderDTO);
+                Console.WriteLine(productInOrder.OrderId);
+                Console.WriteLine(productInOrder.ProductId);
+                var productInOrderEntity = _autoMapper.Map<ProductInOrder>(productInOrder);
+                await _productInOrderRepository.AddProductInOrderAsync(productInOrderEntity);
 
-                await _orderRepository.AddOrderAsync(order);
-
-                var productsInOrder = orderDTO.ProductInOrder;
-
-                foreach (var productInOrder in productsInOrder)
-                {
-                    var productInOrderEntity = _autoMapper.Map<ProductInOrder>(productInOrder);
-                    await _productInOrderRepository.AddProductInOrderAsync(productInOrderEntity);
-                }
-
-                await _stockContext.SaveChangesAsync();
-
-                var SupplierId = order.SupplierId;
-
-                var supplier = await _stockContext.Suppliers.FindAsync(SupplierId);
-
-                var htmlContentBuilder = new System.Text.StringBuilder();
-                htmlContentBuilder.Append("<h1>Order Confirmation</h1>");
-                htmlContentBuilder.Append("<p>Here are the details of your order:</p>");
-                htmlContentBuilder.Append("<ul>");
-
-                foreach (var productInOrder in orderDTO.ProductInOrder)
-                {
-                    var product = await _stockContext.Products.FindAsync(productInOrder.ProductId);
-                 htmlContentBuilder.AppendFormat("<li>{0} - Quantity: {1}</li>", product.Name, productInOrder.Quantity);
-                }
-
-                htmlContentBuilder.Append("</ul>");
-
-                await _emailService.SendEmailAsync("recipient@example.com", "Order Confirmation", htmlContentBuilder.ToString());
-
-                var email = supplier.Email;
-
-                await _emailService.SendEmailAsync(email, "Order Request", htmlContentBuilder.ToString());
-
-   
-                
-                return Ok();
+                Console.WriteLine("adadsad");
             }
 
-            [HttpDelete("{id}")]
+            await _stockContext.SaveChangesAsync();
+
+            var SupplierId = order.SupplierId;
+
+            var supplier = await _stockContext.Suppliers.FindAsync(SupplierId);
+
+            var htmlContentBuilder = new System.Text.StringBuilder();
+            htmlContentBuilder.Append("<h1>Order Confirmation</h1>");
+            htmlContentBuilder.Append("<p>Here are the details of your order:</p>");
+            htmlContentBuilder.Append("<ul>");
+
+            foreach (var productInOrder in orderDTO.ProductInOrder)
+            {
+                var product = await _stockContext.Products.FindAsync(productInOrder.ProductId);
+                htmlContentBuilder.AppendFormat("<li>{0} - Quantity: {1}</li>", product.Name, productInOrder.Quantity);
+            }
+
+            htmlContentBuilder.Append("</ul>");
+
+            await _emailService.SendEmailAsync("recipient@example.com", "Order Confirmation", htmlContentBuilder.ToString());
+
+            var email = supplier.Email;
+
+            await _emailService.SendEmailAsync(email, "Order Request", htmlContentBuilder.ToString());
+
+
+
+            return Ok();
+        }
+
+
+        [HttpDelete("{id}")]
             public async Task<IActionResult> DeleteOrder(int id)
             {
                 await _orderRepository.DeleteOrderAsync(id);

@@ -22,6 +22,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IProductInStockRepository, ProductInStockRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProductInOrderRepository, ProductInOrderRepository>();
 
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>options.SignIn.RequireConfirmedAccount = false)
@@ -59,7 +60,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<StockContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("Stock");
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+    .EnableSensitiveDataLogging(true);
 });
 
 

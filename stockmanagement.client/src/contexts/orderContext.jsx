@@ -1,70 +1,60 @@
-import { useContext,createContext,useState} from "react";
-import axios from "axios";
+import React, { createContext, useContext, useState, useCallback } from 'react';
+import axios from 'axios';
 
 const OrderContext = createContext();
 
 export function useOrder() {
-    return useContext(OrderContext);
+  return useContext(OrderContext);
 }
 
-export function OrderProvider({children}) {
+export const OrderProvider = ({ children }) => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    const [orders, setOrders] = useState([]);
-    const [order, setOrder] = useState({});
+  const getOrders = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`http://localhost:5122/api/order`);
+      setOrders(response.data);
+      setLoading(false);
+    } catch (err) {
+      setError(err);
+      setLoading(false);
+    }
+  }, []);
 
-    const getOrders = async () => {
-        await axios.get('http://localhost:5122/api/order')
-            .then((response) => {
-                setOrders(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+  const addOrder = useCallback(async (orderData) => {
+    try {
+      const response = await axios.post(`http://localhost:5122/api/order/add`, orderData);
+      setOrders(prevOrders => [...prevOrders, response.data]);
+    } catch (err) {
+      setError(err);
+    }
+  }, []);
 
-    const addOrder = async (order) => {
-        await axios.post('http://localhost:5122/api/order/add', order)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+  const deleteOrder = useCallback(async (orderId) => {
+    try {
+      await axios.delete(`http://localhost:5122/api/order/${orderId}`);
+      setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
+    } catch (err) {
+      setError(err);
+    }
+  }, []);
 
-    const deleteOrder = async (orderId) => {
-        await axios.delete(`http://localhost:5122/api/order/${orderId}`)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+  const value = {
+    orders,
+    loading,
+    error,
+    getOrders,
+    addOrder,
+    deleteOrder,
+  };
 
-    const getOrderById = async (orderId) => {
-        await axios.get(`http://localhost:5122/api/order/${orderId}`)
-            .then((response) => {
-                setOrder(response.data);
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+  return (
+    <OrderContext.Provider value={value}>
+      {children}
+    </OrderContext.Provider>
+  );
+};
 
-    const value = {
-        orders,
-        order,
-        getOrders,
-        addOrder,
-        deleteOrder,
-        getOrderById
-    };
-
-    return (
-        <OrderContext.Provider value={value}>
-            {children}
-        </OrderContext.Provider>
-    );
-}
