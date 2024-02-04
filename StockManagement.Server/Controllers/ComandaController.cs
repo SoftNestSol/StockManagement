@@ -5,6 +5,9 @@
     using StockManagement.Server.DTOs;
     using StockManagement.Server.Entities;
     using StockManagement.Server.Repositories;
+    using System.Drawing;
+    using System.Drawing.Common;
+    using QRCoder;
 
     namespace StockManagement.Server.Controllers
     {
@@ -89,6 +92,8 @@
                 var email = supplier.Email;
 
                 await _emailService.SendEmailAsync(email, "Order Request", htmlContentBuilder.ToString());
+
+   
                 
                 return Ok();
             }
@@ -110,5 +115,8 @@
 
                 return Ok();
             }
+
+
+
         }
     }

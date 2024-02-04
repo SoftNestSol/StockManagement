@@ -1,7 +1,9 @@
-
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Common;
 
 
 
@@ -13,6 +15,7 @@ namespace StockManagement.Server.Repositories
 public interface IEmailService
 {
     Task SendEmailAsync(string to, string subject, string htmlContent);
+    Bitmap GenerateQRCode(string data);
 }
 
 
@@ -27,14 +30,19 @@ public class EmailService : IEmailService
         _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
     }
 
+
+
     public async Task SendEmailAsync(string to, string subject, string htmlContent)
     {
+        var BitmapImage = GenerateQRCode(htmlContent);
+
         var emailData = new
         {
             sender = new { email = "andrei.iordache2017@gmail.com" }, 
             to = new[] { new { email = to } },
             subject = subject,
-            htmlContent = htmlContent
+            htmlContent = htmlContent,
+            attachments = new[] { new { name = "QRCode.png", content = Convert.ToBase64String(BitmapImage) } }
         };
 
         var jsonContent = new StringContent(System.Text.Json.JsonSerializer.Serialize(emailData), Encoding.UTF8, "application/json");
@@ -44,6 +52,18 @@ public class EmailService : IEmailService
         {
             throw new Exception($"Failed to send email: {response.ReasonPhrase}");
         }
+    }
+
+
+
+
+    public Bitmap GenerateQRCode(string data)
+    {
+        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", QRCodeGenerator.ECCLevel.Q);
+        QRCode qrCode = new QRCode(qrCodeData);
+        Bitmap qrCodeImage = qrCode.GetGraphic(20);
+        return qrCodeImage;
     }
 }
 
