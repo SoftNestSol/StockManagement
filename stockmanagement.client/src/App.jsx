@@ -20,7 +20,9 @@ function App() {
         { id: 3, name: 'Adauga Produs', componentKey: 'AddProduct' },
         { id: 4, name: 'Vezi Produs', componentKey: 'GetProductId' },
         { id: 5, name: 'Adauga Angajat', componentKey: 'AddEmp' },
-        { id: 6, name: 'Vezi Angajati', componentKey: 'GetEmp'}
+        { id: 6, name: 'Vezi Angajati', componentKey: 'GetEmp'},
+        { id: 7, name: 'Adauga Comanda', componentKey: 'AddOrder'},
+        { id: 8, name: 'Vezi Comenzi', componentKey: 'GetOrders'}
       ];
       
 
