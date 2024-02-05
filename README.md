@@ -51,7 +51,7 @@ Autentificarea foloseste JWT pentru usurinta comunicarii client-server si pastra
 - (https://github.com/SoftNestSol/StockManagement/assets/84620187/7ea388d5-858e-4df6-8d44-ef27b6fb1009)
 - ![Pagina Produse]
 - (https://github.com/SoftNestSol/StockManagement/assets/84620187/ae77126d-8dde-4803-b102-2ac2b36ed5d6)
-  <h3>Pagina Dashboard</h3>
+- Pagina Dashboard
 - ![](https://github.com/SoftNestSol/StockManagement/assets/84620187/090c56cc-b323-4931-85ce-7be95810e8be)
 
 
