@@ -8,6 +8,7 @@ using StockManagement.Server.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using StockManagement.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -54,9 +55,7 @@ public class EmployeeController : ControllerBase
         
         await _stockContext.SaveChangesAsync();
 
-        //create proper role here
-
-        var addToRoleResult = await _userManager.AddToRoleAsync(user, "Admin");
+        var addToRoleResult = await _userManager.AddToRoleAsync(user, employee.Role);
         if (!addToRoleResult.Succeeded)
         {
             return BadRequest(addToRoleResult.Errors);
@@ -99,7 +98,7 @@ public class EmployeeController : ControllerBase
         return EmployeeDTO;
     }
 
-    [Authorize]
+
     [HttpGet("lastid")]
 public async Task<ActionResult<int>> GetLastEmployeeId()
 {

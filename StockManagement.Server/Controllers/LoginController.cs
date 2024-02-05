@@ -44,7 +44,7 @@ public class LoginController : ControllerBase
                 throw new ArgumentException("Username cannot be null or empty", nameof(model.username));
             }
 
-            var token = await GenerateJwtToken(model.username); // Assuming Username is unique
+            var token = await GenerateJwtToken(model.username);
             return Ok(new {token});
         }
         else
@@ -103,5 +103,5 @@ public class LoginController : ControllerBase
         public string username { get; set; }
         public string password { get; set; }
     }
-    // LoginModel and other actions...
+
 }

@@ -1,12 +1,12 @@
-﻿    using AutoMapper;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StockManagement.Server.ContextModels;
-    using StockManagement.Server.DTOs;
-    using StockManagement.Server.Entities;
-    using StockManagement.Server.Repositories;
-    using System.Drawing;
+using StockManagement.Server.DTOs;
+using StockManagement.Server.Entities;
+using StockManagement.Server.Repositories;
+using System.Drawing;
 using System.Text;
 
     namespace StockManagement.Server.Controllers

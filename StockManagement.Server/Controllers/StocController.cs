@@ -7,6 +7,7 @@ using StockManagement.Server.Entities;
 using StockManagement.Server.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 
 [ApiController]

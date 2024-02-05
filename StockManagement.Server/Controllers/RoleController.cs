@@ -16,8 +16,6 @@ namespace Identity.Controllers
             foreach (IdentityError error in result.Errors)
                 ModelState.AddModelError("", error.Description);
 
-
-
         }
         public async Task<IActionResult> CreateRoleAsync([Required] string name)
         {
