@@ -28,7 +28,7 @@ const AddOrder = () => {
     const OrderId = Math.floor(Math.random() * 1000); // Generarea unui ID pentru comandă
     const Status = 'pending';
     const NumberOfProducts = products.length;
-    const date = new Date().toISOString(); // Data curentă
+    const date = new Date().toISOString(); 
 
     // Crearea obiectului comandă
     const newOrder = {

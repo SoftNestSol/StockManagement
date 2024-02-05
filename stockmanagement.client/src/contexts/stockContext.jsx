@@ -17,7 +17,13 @@ export const StockContextProvider = ({ children }) => {
     const [stockLocations, setStockLocations] = useState([]);
 
     const getStocks = async () => {
-        await axios.get('http://localhost:5122/api/stock')
+        await axios.get('http://localhost:5122/api/stock',
+        {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')    
+      }                
+    })
             .then((response) => {
                 setStocks(response.data);
                 setStockLocations(response.data.map((stock) => stock.Location));
@@ -30,7 +36,13 @@ export const StockContextProvider = ({ children }) => {
 
     const AddStock = async (stock) => {
 
-        await axios.post('http://localhost:5122/api/stock', stock)
+        await axios.post('http://localhost:5122/api/stock', stock,
+        {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')         
+      }          
+    })
             .then((response) => {
                 console.log(response);
             })
@@ -44,7 +56,13 @@ export const StockContextProvider = ({ children }) => {
 
     const getProductsInstock = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:5122/api/stock/${id}`);
+            const response = await axios.get(`http://localhost:5122/api/stock/${id}`,
+            {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')                    
+              }
+        });
             return response.data;
         } catch (error) {
             console.error(error);

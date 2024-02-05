@@ -15,7 +15,14 @@ export const OrderProvider = ({ children }) => {
   const getOrders = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5122/api/order`);
+      const response = await axios.get(`http://localhost:5122/api/order`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')                    
+      }
+      });
+
       setOrders(response.data);
       setLoading(false);
     } catch (err) {
@@ -26,16 +33,32 @@ export const OrderProvider = ({ children }) => {
 
   const addOrder = useCallback(async (orderData) => {
     try {
-      const response = await axios.post(`http://localhost:5122/api/order/add`, orderData);
+      const response = await axios.post(`http://localhost:5122/api/order/add`, orderData,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')  
+      }                  
+    });
+  
+
+  
+  
       setOrders(prevOrders => [...prevOrders, response.data]);
     } catch (err) {
       setError(err);
     }
   }, []);
 
+
   const deleteOrder = useCallback(async (orderId) => {
     try {
-      await axios.delete(`http://localhost:5122/api/order/${orderId}`);
+      await axios.delete(`http://localhost:5122/api/order/${orderId}`,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')      
+      }              
+    });
+      
       setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     } catch (err) {
       setError(err);

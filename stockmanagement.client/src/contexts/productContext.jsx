@@ -14,7 +14,13 @@ export const ProductContextProvider = ({children}) => {
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState({});
     const getProducts = async () => {
-        await axios.get('http://localhost:5122/api/product')
+        await axios.get('http://localhost:5122/api/product',
+        {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')  
+            }                  
+          })
             .then((response) => {
                 setProducts(response.data);
             })
@@ -26,7 +32,13 @@ export const ProductContextProvider = ({children}) => {
    
 
     const addProduct = async (product) => {
-        await axios.post('http://localhost:5122/api/product/add', product)
+        await axios.post('http://localhost:5122/api/product/add', product,
+        {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')   
+      }                 
+    })
             .then((response) => {
                 console.log(response);
             })
@@ -35,7 +47,13 @@ export const ProductContextProvider = ({children}) => {
             });
     };
     const deleteProduct = async (productId) => {
-        await axios.delete(`http://localhost:5122/api/product/${productId}`)
+        await axios.delete(`http://localhost:5122/api/product/${productId}`,
+        {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')  
+            }                  
+          })
             .then((response) => {
                 console.log(response);
             })
@@ -45,7 +63,12 @@ export const ProductContextProvider = ({children}) => {
     };
 
     const addProductToStock = async (productInStock) => {
-        await axios.post('http://localhost:5122/api/product/addToStock', productInStock)
+        await axios.post('http://localhost:5122/api/product/addToStock', productInStock, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')     
+      }               
+    })
             .then((response) => {
                 console.log(response);
             })
@@ -54,7 +77,11 @@ export const ProductContextProvider = ({children}) => {
             });
     };
     const getProductById = async (productId) => {
-        await axios.get(`http://localhost:5122/api/product/${productId}`)
+        await axios.get(`http://localhost:5122/api/product/${productId}`,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')                    
+     }})
             .then((response) => {
                 setProduct(response.data);
                 console.log(response);
