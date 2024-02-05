@@ -47,9 +47,12 @@ Pagina de Stocuri este un instrument esențial pentru managementul inventarului.
 Autentificarea foloseste JWT pentru usurinta comunicarii client-server si pastrarea sesiunii de logare a utilizatorului curent, folosind LocalStorage. Identity pe partea de server, folosim 4 feluri de roluri pentru a gestiona permisiunile angajatilor.
 
 ## Prezentarea Funcționalității (Imagini)
-- ![Diagrama ERD BD](https://github.com/SoftNestSol/StockManagement/assets/84620187/7ea388d5-858e-4df6-8d44-ef27b6fb1009)
-- ![Pagina Produse](https://github.com/SoftNestSol/StockManagement/assets/84620187/ae77126d-8dde-4803-b102-2ac2b36ed5d6)
-- ![Pagina Dashboard](https://github.com/SoftNestSol/StockManagement/assets/84620187/090c56cc-b323-4931-85ce-7be95810e8be)
+- ![Diagrama ERD BD]
+- (https://github.com/SoftNestSol/StockManagement/assets/84620187/7ea388d5-858e-4df6-8d44-ef27b6fb1009)
+- ![Pagina Produse]
+- (https://github.com/SoftNestSol/StockManagement/assets/84620187/ae77126d-8dde-4803-b102-2ac2b36ed5d6)
+- ![Pagina Dashboard]
+- (https://github.com/SoftNestSol/StockManagement/assets/84620187/090c56cc-b323-4931-85ce-7be95810e8be)
 
 
 
