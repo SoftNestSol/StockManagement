@@ -17,6 +17,7 @@ public class ProductController : ControllerBase
     private readonly StockContext _stockContext;
     private readonly IMapper _autoMapper;
     private readonly IProductInStockRepository _productInStockRepository;
+
     public ProductController(IProductRepository productRepository,IProductInStockRepository productInStockRepository, StockContext stockContext, IMapper autoMapper)
     {
         _stockContext = stockContext;
@@ -25,6 +26,7 @@ public class ProductController : ControllerBase
         _productInStockRepository = productInStockRepository;
     }
 
+    [Authorize(Roles = "Admin, AngajatTier3, AngajatTier2, AngajatTier1")]
     [HttpGet]
     public async Task<List<ProductDTO>> GetProducts() 
     {
@@ -33,7 +35,7 @@ public class ProductController : ControllerBase
         return productsDTO;
     }
 
-
+    [Authorize(Roles = "Admin, AngajatTier3, AngajatTier2")]
     [HttpPost("add")]    
     public async Task<ActionResult<ProductDTO>> AddProduct([FromBody]ProductDTO product)
 {
@@ -47,7 +49,7 @@ public class ProductController : ControllerBase
     return Ok(createdProductDTO);
 }
 
-
+    [Authorize(Roles = "Admin, AngajatTier3, AngajatTier2")]
     [HttpPost("addToStock")]
     public async Task<ActionResult<ProductInStockDTO>> AddProductToStock([FromBody] ProductInStockDTO inStock)
     {
@@ -59,7 +61,7 @@ public class ProductController : ControllerBase
 
     }
 
-
+    [Authorize(Roles = "Admin, AngajatTier3, AngajatTier2")]
     [HttpPut("{id}")]
 public async Task<ActionResult<ProductDTO>> UpdateProduct(int id, [FromBody]ProductDTO product)
 {
@@ -70,8 +72,8 @@ public async Task<ActionResult<ProductDTO>> UpdateProduct(int id, [FromBody]Prod
 
 }
 
+[Authorize(Roles = "Admin, AngajatTier3")]
 [HttpDelete("{id}")]
-
 public async Task<ActionResult> DeleteProduct(int id)
 {
     await _productRepository.DeleteProductAsync(id);
@@ -79,7 +81,7 @@ public async Task<ActionResult> DeleteProduct(int id)
 
 }
 
-
+    [Authorize(Roles = "Admin, AngajatTier3, AngajatTier2, AngajatTier1")]
     [HttpGet("{id}")]
     public async Task<ActionResult<ProductDTO>> GetProduct(int id)
     {

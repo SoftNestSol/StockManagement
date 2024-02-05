@@ -28,6 +28,7 @@ public class StockController : ControllerBase
 
     }
 
+    [Authorize(Roles = "Admin, AngajatTier3, AngajatTier2, AngajatTier1")]
     [HttpGet]
     public async Task<List<StockDTO>> GetStocks() 
     {
@@ -36,6 +37,8 @@ public class StockController : ControllerBase
         return stocksDTO;
     }
 
+
+    [Authorize(Roles = "Admin, AngajatTier3, AngajatTier2, AngajatTier1")]
     [HttpGet("{id}")]
     public async Task<ActionResult<List<ProductDTO>>> GetStock(int id)
     {
@@ -67,6 +70,7 @@ public class StockController : ControllerBase
         return joinedProducts;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
 public async Task<ActionResult<StockDTO>> AddStock([FromBody]StockDTO stock)
 {
@@ -78,6 +82,8 @@ public async Task<ActionResult<StockDTO>> AddStock([FromBody]StockDTO stock)
     return Ok(createdStockDTO);
 }
 
+
+[Authorize(Roles = "Admin, AngajatTier3, AngajatTier2, AngajatTier1")]
 [HttpPut("{id}")]
 public async Task<ActionResult<StockDTO>> UpdateStock(int id, [FromBody]StockDTO stock)
 {
@@ -88,6 +94,8 @@ public async Task<ActionResult<StockDTO>> UpdateStock(int id, [FromBody]StockDTO
 
 }
 
+
+[Authorize(Roles = "Admin, AngajatTier3, AngajatTier2")]
 [HttpDelete("{id}")]
 public async Task<ActionResult> DeleteStock(int id)
 {
