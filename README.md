@@ -32,14 +32,14 @@ O scurtă descriere a aplicației: Aplicația StockManagement este o soluție so
 
 1. Dashboard
 Pagina principală a aplicației, cunoscută sub numele de Dashboard, oferă o vizualizare de ansamblu asupra funcțiilor principale și permite accesul rapid la diferite secțiuni ale aplicației. Elementele de interfață includ icoane reprezentative pentru fiecare categorie principală: Angajați, Produse, Comenzi și Stocuri. Acesta servește ca hub central pentru navigarea în aplicație, permițând utilizatorilor să acceseze rapid funcționalitățile dorite.
-<bold>
 Important -> Avem o functie de search pentru functiile aplicatiei pentru acces rapid si ease-of-use
-<bold>
+<img width="172" alt="Screenshot 2024-02-05 at 23 18 34" src="https://github.com/SoftNestSol/StockManagement/assets/84620187/54129279-88f6-477b-9c5b-dca6ed0c5cc4">
 
-2. Pagina de Angajați (AngajatController)
+
+3. Pagina de Angajați (AngajatController)
 Această pagină este dedicată gestionării angajaților și include funcționalități pentru a vizualiza toți angajații (Get Employees), adăugarea unui nou angajat (Add Employee) și ștergerea unui angajat existent (Delete Employee). Interfața este simplă și directă, cu butoane pentru fiecare acțiune și o listă care afișează angajații existenți, probabil cu ID-ul și numele lor, oferind o interfață clară și ușor de utilizat pentru managementul angajaților.
 
-3. Pagina de Stocuri (Stock Options) - exemplu, toate urmaresc aceeasi structura
+4. Pagina de Stocuri (Stock Options) - exemplu, toate urmaresc aceeasi structura
 Pagina de Stocuri este un instrument esențial pentru managementul inventarului. Aici utilizatorii pot vedea stocurile existente, cu detalii precum ID-ul și locația (e.g., București, Târgoviște, Ploiești). Există, de asemenea, opțiuni pentru colapsarea listei de stocuri pentru o vizualizare simplificată, adăugarea unui nou stoc (Add Stock) și alte acțiuni relevante pentru managementul stocurilor. Designul este intuitiv, oferind o navigare ușoară și eficientă în procesul de gestionare a inventarului.
   
 ## Autentificare
@@ -47,10 +47,10 @@ Pagina de Stocuri este un instrument esențial pentru managementul inventarului.
 Autentificarea foloseste JWT pentru usurinta comunicarii client-server si pastrarea sesiunii de logare a utilizatorului curent, folosind LocalStorage. Identity pe partea de server, folosim 4 feluri de roluri pentru a gestiona permisiunile angajatilor.
 
 ## Prezentarea Funcționalității (Imagini)
+- ![Diagrama ERD BD](https://github.com/SoftNestSol/StockManagement/assets/84620187/7ea388d5-858e-4df6-8d44-ef27b6fb1009)
+- ![Pagina Produse](https://github.com/SoftNestSol/StockManagement/assets/84620187/ae77126d-8dde-4803-b102-2ac2b36ed5d6)
+- ![Pagina Dashboard](https://github.com/SoftNestSol/StockManagement/assets/84620187/090c56cc-b323-4931-85ce-7be95810e8be)
 
-- ![Pagina Dashboard](link_spre_imagine_1)
-- ![Pagina Angajat](link_spre_imagine_2)
-- ![Descriere Stoc](link_spre_imagine_3)
 
 
 ## Licență
